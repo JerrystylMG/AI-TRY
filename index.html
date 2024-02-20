@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QDSZE0VTXD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QDSZE0VTXD');
+</script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0">
+<meta name="description" content="A conversational AI system that listens, learns, and challenges">
+<meta property="og:title" content="ShuttleAI">
+<meta property="og:image" content="/assets/img/favicon.ico">
+<meta property="og:description" content="A conversational AI system that listens, learns, and challenges">
+<meta property="og:url" content="https://chat.shuttle.rip">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="manifest" href="/assets/img/site.webmanifest">
+<script src="/assets/js/icons.js"></script>
+<script src="/assets/js/highlightjs-copy.min.js"></script>
+<script src="/assets/js/chat.js" defer></script>
+
+
+<script type="text/javascript" src="/ads"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/base16/dracula.min.css">
+<script>
+            const user_image        = `<img src="/assets/img/user.png" alt="your avatar">`;
+            const gpt_image         = `<img src="/assets/img/gpt.png" alt="your avatar">`;
+        </script>
+<style>
+            .hljs {
+                color: #e9e9f4;
+                background: #28293629;
+                border-radius: var(--border-radius-1);
+                border: 1px solid var(--blur-border);
+                font-size: 15px;
+            }
+
+            #message-input {
+                margin-right: 30px;
+                height: 80px;
+            }
+
+            #message-input::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            /* Track */
+            #message-input::-webkit-scrollbar-track {
+                background: #f1f1f1; 
+            }
+
+            /* Handle */
+            #message-input::-webkit-scrollbar-thumb {
+                background: #c7a2ff; 
+            }
+
+            /* Handle on hover */
+            #message-input::-webkit-scrollbar-thumb:hover {
+                background: #8b3dff; 
+            }
+        </style>
+<script src="/assets/js/highlight.min.js"></script>
+<script>window.conversation_id = `36472420-959a-4cbf-9969-18dc2643ca1`</script>
+<title>ShuttleAI</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4264669536146361" crossorigin="anonymous"></script>
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PXQ1X8KT6L"></script>
+<script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PXQ1X8KT6L');
+    </script>
+<body>
+<div id="popup_box" class="popup_box" style="display: none">
+<div class="popup_content">
+<h2>Confirm to clear all chat data?</h2>
+<button class="cancel" onclick="close_popup()">Cancel</button>
+<button class="delete" onclick="delete_conversations()">Delete</button>
+</div>
+</div>
+
+<div class="row">
+<div class="box conversations" id="sidebar">
+<div class="top">
+<button class="new_convo" onclick="new_conversation()">
+<i class="fa-regular fa-plus"></i>
+<span>New Chat</span>
+</button>
+</div>
+<div class="bottom_buttons">
+<button onclick="confirm_deletion()">
+<i class="fa-regular fa-trash"></i>
+<span>Clear Conversations</span>
+</button>
+<div class="info">
+<i class="fa-brands fa-discord"></i>
+<span class="convo-title">Discord: <a href="https://discord.com/invite/shuttleai">shuttleai</a><br>
+</span>
+</div>
+<div class="info">
+<i class="fa-regular fa-circle-info"></i>
+<span class="convo-title">
+Version: 2.0.0
+</span>
+</div>
+
+</div>
+</div>
+<div class="conversation">
+<div class="stop_generating stop_generating-hidden">
+<button id="cancelButton">
+<span>Stop Generating</span>
+<i class="fa-regular fa-stop"></i>
+</button>
+</div>
+<div class="box" id="messages">
+</div>
+<div class="buttons">
+<div class="field">
+<input type="checkbox" id="switch" />
+<label for="switch"></label>
+<span class="about">Web Access</span>
+</div>
+<div class="field">
+<select name="model" id="model">
+<option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+<option value="gpt-4">gpt-4</option>
+<option value="claude-instant">claude instant</option>
+</select>
+</div>
+<div class="field">
+<select name="jailbreak" id="jailbreak">
+<option value="default" selected>None</option>
+<option value="gpt-math-1.0">math 1.0</option>
+<option value="gpt-dude-1.0">dude 1.0</option>
+<option value="gpt-dan-1.0">dan 1.0</option>
+<option value="gpt-dan-2.0">dan 2.0</option>
+<option value="gpt-dev-2.0">dev 2.0</option>
+<option value="gpt-evil-1.0">evil 1.0</option>
+</select>
+</div>
+<div class="field">
+<select name="personality" id="personality">
+<option value="default" selected>None</option>
+<option value="dating">Dating </option>
+</select>
+</div>
+<div class="field">
+<input type="text" id="api-key" placeholder="ShuttleAI Key" />
+</div>
+<div id="recording-indicator">
+<div class="red-circle"></div>
+<div id="timestamp"></div>
+</div>
+<div id="speech-button" style="margin-right: 3px; margin-left: 10px;">
+<i class="fa-solid fa-microphone-slash"></i>
+</div>
+<style>
+                            #recording-indicator {
+                            display: none; 
+                            align-items: center;
+                            }
+
+                            .red-circle {
+                            width: 10px;
+                            height: 10px;
+                            background-color: red;
+                            border-radius: 50%;
+                            right: 5px;
+                            margin: auto;
+                            }
+
+                            #timestamp {
+                            font-weight: bold;
+                            display: flex;
+                            align-items: center; 
+                            }
+                            </style>
+
+</div>
+<div class="user-input">
+<div class="box input-box">
+<textarea id="message-input" placeholder="Ask ShuttleAI anything..." cols="30" rows="10" style="white-space: pre-wrap; resize: none;"></textarea>
+<div id="send-button">
+<i class="fa-solid fa-paper-plane-top"></i>
+</div>
+</div>
+</div>
+<script>
+const speechButton = document.getElementById('speech-button');
+const messageInput = document.getElementById('message-input');
+const recordingIndicator = document.getElementById('recording-indicator');
+const redCircle = document.querySelector('.red-circle');
+const timestamp = document.getElementById('timestamp');
+let isMicOn = false; // Variable to track microphone state
+let recordingInterval; // Variable to store the recording timer interval
+const recognition = new webkitSpeechRecognition();
+recognition.lang = 'en-US';
+recognition.continuous = true;
+
+// Function to toggle microphone state
+function toggleMicrophone() {
+    if (isMicOn) {
+        isMicOn = false;
+        recognition.stop();
+        speechButton.innerHTML = '<i class="fa-solid fa-microphone-slash"></i>';
+        clearInterval(recordingInterval); // Stop the recording timer
+        recordingIndicator.style.display = 'none'; // Hide the recording indicator
+    } else {
+        isMicOn = true;
+        recognition.start();
+        speechButton.innerHTML = '<i class="fa-solid fa-microphone"></i>';
+        recordingIndicator.style.display = 'flex'; 
+        startRecordingTimer();
+    }
+}
+
+// Function to handle speech recognition result
+recognition.onresult = function(event) {
+    let transcript = event.results[event.results.length - 1][0].transcript;
+    transcript = transcript.toLowerCase();
+    const currentText = messageInput.value;
+    messageInput.value = currentText + ' ' + transcript;
+    messageInput.scrollTop = messageInput.scrollHeight; // Scroll to the bottom of the textarea
+};
+
+// Function to handle microphone permission error
+recognition.onerror = function(event) {
+    console.error('Speech recognition error:', event.error);
+};
+
+// Function to start recording timer
+function startRecordingTimer() {
+    let startTime = new Date().getTime();
+    recordingInterval = setInterval(function() {
+        let currentTime = new Date().getTime();
+        let duration = Math.floor((currentTime - startTime) / 1000);
+        let minutes = Math.floor(duration / 60);
+        let seconds = duration % 60;
+        timestamp.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }, 1000);
+}
+
+// Add an event listener to the speech button
+speechButton.addEventListener('click', toggleMicrophone);
+
+                    </script>
+</div>
+</div>
+
+</div>
+<div class="mobile-sidebar">
+<i class="fa-solid fa-bars"></i>
+</div>
+<script>
+// window.addEventListener('load', function () {
+//     const modal = document.getElementById("releaseNotesModal");
+//     const closeButton = document.getElementsByClassName("close")[0];
+
+//     if(modal && closeButton) {
+//         modal.style.display = "block";
+
+//         closeButton.onclick = function () {
+//             modal.style.display = "none";
+//         }
+
+//         window.onclick = function (event) {
+//             if (event.target == modal) {
+//                 modal.style.display = "none";
+//             }
+//         }
+//     }
+// });
+</script>
+<script>
+  // javascript:(function () { var script = document.createElement('script'); script.src="https://cdn.jsdelivr.net/npm/eruda"; document.body.append(script); script.onload = function () { eruda.init(); } })();
+</script>
+<form method="post">
+<input type="hidden" name="csrf_token" id="csrf_token" value="IjA3Yjc2OGNlMTRlYTVhNWQxNzUwOTNhNjNjYjM4ODg0Njg2Y2Y4NmQi.ZdTFGQ.H53IG99QdIijQ2kAmZefhIx_xpY" />
+</form>
+</body>
+</html>
